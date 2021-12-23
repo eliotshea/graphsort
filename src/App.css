@@ -77,14 +77,6 @@
   pointer-events: none;
 }
 
-
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 @media only screen and (max-width: 600px) {
   .App {
     flex-direction: column;
@@ -103,9 +95,10 @@
     margin-bottom: 2em;
   }
   .Bar {
-    width: 1vw !important;
-    margin: 0vh 0.45vw !important;
+
   }
+
+  
 }
 
 .App-header {
