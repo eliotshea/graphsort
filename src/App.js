@@ -1,64 +1,92 @@
 import './App.css';
 import Bar from './Bar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { bubbleSort }  from './algorithms/BubbleSort';
+import { quickSort } from './algorithms/QuickSort';
+import { getBarModels, getValues, Algorithms } from './Helpers';
 
-function getValues() {
-  const values = []
-  for(let i = 0; i < 50; i++) {
-    values.push(Math.floor(Math.random() * 100));
-  }
-  return values;
-}
+var sorting = false;
+var values = [];
 
-function getBarModels(values) {
-  return values.map(value => {
-    return {
-      width: 1,
-      height: value * 5,
-      color: "green"
-    }
-  });
-}
-
-function delay(time) {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
+const defaultSize = 50;
 
 function App() {
-  var values = getValues();
-  const [barModels, setBars] = useState(getBarModels(values))
+  const [sorting, setSorting] = useState(false);
+  const [algorithm, setSortFunction] = useState(0);
+  const [barModels, setBars] = useState(getBarModels(values)) ;
+  const [size, setSize] = useState(defaultSize);
   
-  const barComponents = barModels.map(x => 
-    <Bar height={x.height} width={x.width} color={x.color}></Bar>
-  );
+  useEffect(() => {
+    values = getValues(size);
+    setBars(getBarModels(values));
+  }, [size]);
   
-  async function startSort() {
-    for(var i = 0; i < values.length; i++) {
-      for(var j = 0; j < values.length - 1; j++) {
-        if(values[j] > values[j+1]) {
-          let temp = values[j];
-          values[j] = values[j+1];
-          values[j+1] = temp;
-          setBars(getBarModels(values));
-          await delay(1);
-        }
+  async function sort() {
+    setBars(getBarModels(values));
+
+    if(sorting === false){
+      switch (algorithm) {
+        case Algorithms.BubbleSort:
+          setSorting(true);
+          bubbleSort(values, setBars).then(() => setSorting(false));
+          break;
+        case Algorithms.QuickSort:
+          setSorting(true);
+          quickSort(size, values, setBars).then(() => setSorting(false));
+          break;
+        default:
+          break;
       }
+    }
+    
+  }
+
+  function changeSort(event) {
+    if(!sorting) {
+      setSortFunction(parseInt(event.target.value));
+      values = getValues(size);
+      setBars(getBarModels(values));
+    }
+  }
+
+  function handleResize(event) {
+    if(!sorting) {
+      setSize(parseInt(event.target.value));
+    }
+  }
+
+  function handleRefresh() {
+    if(!sorting) {
+      console.log("refreshed")
+      values = getValues(size);
+      setBars(getBarModels(values));
     }
   }
 
   return (
     <div className="App">
-      <div className="Buttons">
-        <input type="button" value="Refresh" onClick={() => {
-          values = getValues();
-          setBars(getBarModels(values));
-        }}/>
-        <input type="button" value="Sort" onClick={() => startSort()}/>
+      <h1>
+        <select name="algorithm" onChange={changeSort}>
+          <option value={Algorithms.BubbleSort}>Bubble Sort</option>
+          <option value={Algorithms.QuickSort}>Quick Sort</option>
+        </select>
+        <span>
+          Visualization 
+        </span>
+      </h1>
+      <div className='Container'>
+        <div className="Buttons">
+          <input type="button" value="Refresh" onClick={handleRefresh}/>
+          <input type="button" value="Sort" onClick={sort}/>
+        </div>
+        
+        <div className="Graph">
+          {barModels.map((x, index) => 
+            <Bar key={index} height={x.height} width={x.width} color={x.color}></Bar>
+          )}
+        </div>
       </div>
-      
-      <div className="Graph">
-        {barComponents}
-      </div>
+      <input type="range" min="20" max="200" value={size} onChange={handleResize}/>
     </div>
   );
 }
