@@ -86,6 +86,7 @@ function App() {
           )}
         </div>
       </div>
+      <label>{size}</label>
       <input type="range" min="20" max="200" value={size} onChange={handleResize}/>
     </div>
   );
