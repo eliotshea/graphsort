@@ -1,6 +1,8 @@
 export const Algorithms = {
     BubbleSort: 0,
     QuickSort: 1,
+    InsertionSort: 2,
+    SelectionSort: 3
 }
 
 export function delay(time) {

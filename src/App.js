@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { bubbleSort }  from './algorithms/BubbleSort';
 import { quickSort } from './algorithms/QuickSort';
 import { getBarModels, getValues, Algorithms } from './Helpers';
+import { insertionSort } from './algorithms/InsertionSort';
+import { selectionSort } from './algorithms/SelectionSort';
 
 var sorting = false;
 var values = [];
@@ -33,6 +35,14 @@ function App() {
         case Algorithms.QuickSort:
           setSorting(true);
           quickSort(size, values, setBars).then(() => setSorting(false));
+          break;
+        case Algorithms.InsertionSort:
+          setSorting(true);
+          insertionSort(values, setBars).then(() => setSorting(false));
+          break;
+        case Algorithms.SelectionSort:
+          setSorting(true);
+          selectionSort(values, setBars).then(() => setSorting(false));
           break;
         default:
           break;
@@ -69,6 +79,8 @@ function App() {
         <select name="algorithm" onChange={changeSort}>
           <option value={Algorithms.BubbleSort}>Bubble Sort</option>
           <option value={Algorithms.QuickSort}>Quick Sort</option>
+          <option value={Algorithms.InsertionSort}>Insertion Sort</option>
+          <option value={Algorithms.SelectionSort}>Selection Sort</option>
         </select>
         <span>
           Visualization 
