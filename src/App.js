@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Bar from './Bar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function getValues() {
   const values = []
@@ -47,29 +46,18 @@ function App() {
         }
       }
     }
-
-    // let x = 0;
-    // let interval = setInterval(() => {
-    //   values[x] = 100;
-      
-    //   x += 1;
-    //   setBars(getBars(values));
-    //   if(x == values.length) {
-    //     clearInterval(interval);
-    //   }
-    // }, 100)
-
-
-    
   }
 
   return (
     <div className="App">
-      <input type="button" value="Refresh" onClick={() => {
-        values = getValues();
-        setBars(getBars(values));
-      }}/>
+      <div className="Buttons">
+        <input type="button" value="Refresh" onClick={() => {
+          values = getValues();
+          setBars(getBars(values));
+        }}/>
         <input type="button" value="Sort" onClick={() => startSort()}/>
+      </div>
+      
       <div className="Graph">
         {barComponents}
       </div>
