@@ -25,7 +25,7 @@ async function quickSortPartition(start, end, values, setBars) {
         pivotIndex++;
         if(values[i] !== values[pivotIndex]) {
           setBars(getBarModels(values));
-          await delay(50);
+          await delay(1);
         }
       }
     }

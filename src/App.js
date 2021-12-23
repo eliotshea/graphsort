@@ -7,7 +7,6 @@ import { getBarModels, getValues, Algorithms } from './Helpers';
 import { insertionSort } from './algorithms/InsertionSort';
 import { selectionSort } from './algorithms/SelectionSort';
 
-var sorting = false;
 var values = [];
 
 const defaultSize = 50;
