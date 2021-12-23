@@ -56,6 +56,20 @@
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .App {
+    flex-direction: column;
+  }
+
+  .Graph {
+    width: 95vw !important;
+  }
+  .Bar {
+    width: 1vw !important;
+    margin: 0vh 0.45vw !important;
+  }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

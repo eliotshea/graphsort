@@ -10,11 +10,11 @@ function getValues() {
   return values;
 }
 
-function getBars(values) {
-  return values.map(x => {
+function getBarModels(values) {
+  return values.map(value => {
     return {
-      width: 10,
-      height: x * 5,
+      width: 1,
+      height: value * 5,
       color: "green"
     }
   });
@@ -26,14 +26,12 @@ function delay(time) {
 
 function App() {
   var values = getValues();
-  //const [values , setValues] = useState(getValues())
-  const [bars, setBars] = useState(getBars(values))
+  const [barModels, setBars] = useState(getBarModels(values))
   
-  const barComponents = bars.map(x => 
+  const barComponents = barModels.map(x => 
     <Bar height={x.height} width={x.width} color={x.color}></Bar>
   );
   
- // useEffect(() => {setBars(getBars(values))}, [values])
   async function startSort() {
     for(var i = 0; i < values.length; i++) {
       for(var j = 0; j < values.length - 1; j++) {
@@ -41,7 +39,7 @@ function App() {
           let temp = values[j];
           values[j] = values[j+1];
           values[j+1] = temp;
-          setBars(getBars(values));
+          setBars(getBarModels(values));
           await delay(1);
         }
       }
@@ -53,7 +51,7 @@ function App() {
       <div className="Buttons">
         <input type="button" value="Refresh" onClick={() => {
           values = getValues();
-          setBars(getBars(values));
+          setBars(getBarModels(values));
         }}/>
         <input type="button" value="Sort" onClick={() => startSort()}/>
       </div>

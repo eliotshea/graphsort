@@ -3,10 +3,10 @@ function Bar(props) {
 
     return <div key={height} style={{ 
             height: height,
-            width: width,
+            width: `${width}vw`,
             backgroundColor: color,
             borderRadius: '10px',
-            margin: '5px',
+            margin: '0vh 0.5vw',
         }} className="Bar"></div>
 
        
