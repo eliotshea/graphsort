@@ -99,12 +99,9 @@
   .Graph {
     width: 95vw !important;
     margin-bottom: 2em;
+    align-items: flex-end;
+    align-self: center;
   }
-  .Bar {
-
-  }
-
-  
 }
 
 .App-header {
